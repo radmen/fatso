@@ -1,0 +1,17 @@
+{
+    "name": "radmen/fatso",
+    "description": "Silex fat cousin",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.3",
+        "silex/silex": "1.0.*",
+        "symfony/yaml": "2.2.x-dev",
+        "symfony/finder": "2.2.x-dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Fatso": "src"
+        }
+    },
+    "minimum-stability": "dev"
+}
