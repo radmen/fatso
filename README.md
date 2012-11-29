@@ -1,5 +1,5 @@
 # What is Fatso?
-Silex is great microframework, but it's sometimes just _too_ simple. Fatso is his fat cousin.  
+Silex is great micro-framework, but it's sometimes just _too_ simple. Fatso is his fat cousin.  
 It provides very simple, basic classes and automates few things.
 
 Fatso can:
@@ -14,7 +14,7 @@ Yet Fatso can be useful.
 
 # Fast class overview
 
-TL;DR - goto [Demo](#)
+TL;DR - goto: [demo](#fatso-skeleton)
 
 ## Config
 Config loads files from `$app['config.dir']` path.  
@@ -93,4 +93,9 @@ Sample provider config file:
 ```
 
 # Fatso-skeleton
-Wait for it.. :)
+There's also sample [Fatso skeleton](https://github.com/radmen/fatso-skeleton), check it out to see how Fatso works.
+
+# Todo
+
+* simple "bundles" - Twig loader that finds templates in modules (only in `src/`)
+* cli console
