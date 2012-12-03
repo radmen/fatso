@@ -14,5 +14,6 @@
             "Fatso": "src"
         }
     },
+    "bin": ["bin/chubby"],
     "minimum-stability": "dev"
 }
