@@ -3,7 +3,6 @@
 namespace Fatso\Tests\Config\FileFilter;
 
 use Fatso\Config\FileFilter\EnvFilter;
-use Fatso\Env;
 
 class EnvFilterTest extends \PHPUnit_Framework_TestCase {
   

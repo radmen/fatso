@@ -6,9 +6,9 @@ use Silex\Application;
 
 class Bootstrap {
   
-  private $app;
+  protected $app;
   
-  private $envDected = false;
+  protected $envDected = false;
   
   public function __construct(Application $app) {
     $this->app = $app;
@@ -26,7 +26,7 @@ class Bootstrap {
   /**
    * @return \Fatso\Bootstrap
    */
-  private function setupApplication() {
+  protected function setupApplication() {
     
     foreach($this->app['config']->get('app') as $name => $value) {
       $this->app[$name] = $value;
@@ -40,7 +40,7 @@ class Bootstrap {
    * 
    * @return \Fatso\Bootstrap
    */
-  private function detectEnv() {
+  protected function detectEnv() {
     $this->app['env']->setConfig($this->app['config']->get('env'));
     $this->app['env']->detect($this->app['env.host'] ?: $_SERVER['HTTP_HOST']);
     
@@ -55,7 +55,7 @@ class Bootstrap {
    * @throws \BadMethodCallException
    * @return \Fatso\Bootstrap
    */
-  private function registerProviders() {
+  protected function registerProviders() {
     
     if(false === $this->envDected) {
       throw new \BadMethodCallException('Detect env first');
@@ -72,7 +72,7 @@ class Bootstrap {
    * @return \Fatso\Bootstrap
    * @throws \RuntimeException
    */
-  private function registerRoutes() {
+  protected function registerRoutes() {
     $allowed_methods = array('get', 'post', 'put', 'delete', 'match');
     
     foreach($this->app['config']->get('routing') as $name => $config) {

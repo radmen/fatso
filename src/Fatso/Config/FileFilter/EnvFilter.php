@@ -2,16 +2,16 @@
 
 namespace Fatso\Config\FileFilter;
 
-use Fatso\Env;
+use Fatso\EnvAbstract;
 
 class EnvFilter implements \Fatso\Config\FileFilterInterface {
 
   /**
-   * @var Env
+   * @var EnvAbstract
    */
   private $env;
   
-  public function __construct(Env $env) {
+  public function __construct(EnvAbstract $env) {
     $this->env = $env;
   }
   
