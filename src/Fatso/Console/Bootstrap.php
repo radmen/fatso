@@ -2,12 +2,15 @@
 
 namespace Fatso\Console;
 
+use Symfony\Component\Finder\Finder;
+
 class Bootstrap extends \Fatso\Bootstrap {
   
   public function runApplication() {
     $this->detectEnv()
       ->setupApplication()
-      ->registerProviders();
+      ->registerProviders()
+      ->registerCommands();
     
     return $this->app->run();
   }
@@ -19,6 +22,22 @@ class Bootstrap extends \Fatso\Bootstrap {
     $this->app['env']->setEnv($env);
     
     $this->envDected = true;
+    
+    return $this;
+  }
+  
+  protected function registerCommands() {
+    $finder = Finder::create()
+      ->path('*/Command/*.php')
+      ->files()
+      ->depth(2)
+      ->in($this->app['src.dir']);
+    
+    foreach($finder as $file) {
+      $name = preg_replace('/\.php$/', '', $file->getRelativePathname());
+      $class_name = '\\'.str_replace(DIRECTORY_SEPARATOR, '\\', $name);
+      $this->app['console']->add(new $class_name);
+    }
     
     return $this;
   }
