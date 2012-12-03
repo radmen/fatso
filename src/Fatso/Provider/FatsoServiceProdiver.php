@@ -5,7 +5,6 @@ namespace Fatso\Provider;
 use Silex\Application as Application;
 use Fatso\Config;
 use Fatso\Env;
-use Fatso\Bootstrap;
 
 class FatsoServiceProdiver implements \Silex\ServiceProviderInterface {
 
@@ -26,10 +25,6 @@ class FatsoServiceProdiver implements \Silex\ServiceProviderInterface {
     
     $app['env'] = $app->share(function() {
       return new Env();
-    });
-    
-    $app['bootstrap'] = $app->share(function() use ($app) {
-      return new Bootstrap($app);
     });
   }
 
