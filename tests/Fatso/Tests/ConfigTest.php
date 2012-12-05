@@ -76,4 +76,8 @@ class TestFilter implements Config\FileFilterInterface {
       return true;
     };
   }
+
+  public function getFilePattern($name) {
+    return null;
+  }
 }

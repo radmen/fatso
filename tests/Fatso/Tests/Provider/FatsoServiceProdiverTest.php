@@ -15,7 +15,6 @@ class FatsoServiceProdiverTest extends \PHPUnit_Framework_TestCase {
     
     $this->assertTrue($app['config'] instanceof \Fatso\Config);
     $this->assertTrue($app['env'] instanceof \Fatso\Env);
-    $this->assertTrue($app['bootstrap'] instanceof \Fatso\Bootstrap);
   }
   
   public function testRegisterWithoutConfigDir() {

@@ -14,13 +14,14 @@ class FatsoServiceProdiver implements \Silex\ServiceProviderInterface {
     };
     
     $app['config'] = function() use ($app) {
-      $env = null;
+      $config = new Config($app['config.dir']);
       
       if(true === $app->offsetExists('env')) {
-        $env = $app['env']->get();
+        $filter = new \Fatso\Config\FileFilter\EnvFilter($app['env']);
+        $config->setFilter($filter);
       }
       
-      return new Config($app['config.dir'], $env);
+      return $config;
     };
     
     $app['env'] = $app->share(function() {
