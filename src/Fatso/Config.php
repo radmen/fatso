@@ -50,7 +50,8 @@ class Config {
       $scan_dir .= '/'.$dir;
     }
 
-    $pattern = sprintf('/%s\.\w+$/', str_replace('*', '.+', basename($name)));
+    $basename = basename($name);
+    $pattern = sprintf('/%s\.\w+$/', str_replace('*', '.+', $basename));
     
     try {
       $finder = Finder::create()
@@ -64,7 +65,16 @@ class Config {
     }
     
     if(null !== $this->fileFilter) {
-      $finder->filter($this->fileFilter->getFilter());
+      
+      if(null !== $this->fileFilter->getFilter()) {
+        $finder->filter($this->fileFilter->getFilter());
+      }
+      
+      $filter_pattern_name = $this->fileFilter->getFilePattern($basename);
+      
+      if(false === empty($filter_pattern_name)) {
+        $finder->name($filter_pattern_name);
+      }
     }
     
     $files = array();

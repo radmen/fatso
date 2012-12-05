@@ -3,62 +3,30 @@
 namespace Fatso\Tests\Config\FileFilter;
 
 use Fatso\Config\FileFilter\EnvFilter;
-use Fatso\Env;
 
 class EnvFilterTest extends \PHPUnit_Framework_TestCase {
   
   public function testFilter() {
-    $paths = array(
-      $this->fileInfoFactory('a.php'),
-      $this->fileInfoFactory('a_dev.php'),
-      $this->fileInfoFactory('a_prod.php'),
-      $this->fileInfoFactory('b_prod.php'),
-      $this->fileInfoFactory('c_test.php'),
-      $this->fileInfoFactory('d.php'),
-      $this->fileInfoFactory('metoo.php'),
-    );
-    
-    $env = $this->envMockFactory('prod', array('dev', 'test', 'prod'));
+    $env = $this->envMockFactory('prod', $this->never());
     $file_filter = new EnvFilter($env);
     
-    $filtered = array_filter($paths, $file_filter->getFilter());
-    $expected = array(
-      'a.php',
-      'a_prod.php',
-      'b_prod.php',
-      'd.php',
-      'metoo.php',
-    );
-    
-    $mapper = function(\SplFileInfo $file) {
-      return $file->getBasename();
-    };
-    
-    $this->assertEquals($expected, array_map($mapper, array_values($filtered)));
+    $this->assertNull($file_filter->getFilter());
   }
   
-  public function testFilterIfEnvEmpty() {
-    $env = $this->envMockFactory(null, array());
-    $file_filter = new EnvFilter($env);
+  public function testConfigWithFilterPatterns() {
+    $env = $this->envMockFactory('dev');
+    $filter = new EnvFilter($env);
+    $config = new \Fatso\Config(__DIR__.'/../../Fixtures/config/env');
+    $config->setFilter($filter);
     
-    $callback = $file_filter->getFilter();
-    
-    $this->assertTrue($callback());
+    $this->assertEquals(array('env' => 'dev'), $config->get('env'));
   }
   
-  private function fileInfoFactory($basename) {
-    return new \SplFileInfo($basename);
-  }
-  
-  private function envMockFactory($currentEnv, $environments) {
+  private function envMockFactory($currentEnv, $expects = null) {
     $mock = $this->getMock('\Fatso\Env', array('get', 'getEnvironments'));
-    $mock->expects($this->atLeastOnce())
+    $mock->expects($expects ?: $this->atLeastOnce())
       ->method('get')
       ->will($this->returnValue($currentEnv));
-    
-    $mock->expects($this->atLeastOnce())
-      ->method('getEnvironments')
-      ->will($this->returnValue($environments));
     
     return $mock;
   }
