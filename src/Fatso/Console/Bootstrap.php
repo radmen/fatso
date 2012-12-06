@@ -36,7 +36,13 @@ class Bootstrap extends \Fatso\Bootstrap {
     foreach($finder as $file) {
       $name = preg_replace('/\.php$/', '', $file->getRelativePathname());
       $class_name = '\\'.str_replace(DIRECTORY_SEPARATOR, '\\', $name);
-      $this->app['console']->add(new $class_name);
+      $command = new $class_name;
+      
+      if($command instanceof Command\Command) {
+        $command->setContainer($this->app);
+      }
+      
+      $this->app['console']->add($command);
     }
     
     return $this;
