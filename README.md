@@ -10,7 +10,6 @@ Fatso can:
 * load routes from config file
 
 Fatso is ugly.
-Yet Fatso can be useful.
 
 # Fast class overview
 
@@ -94,8 +93,3 @@ Sample provider config file:
 
 # Fatso-skeleton
 There's also sample [Fatso skeleton](https://github.com/radmen/fatso-skeleton), check it out to see how Fatso works.
-
-# Todo
-
-* simple "bundles" - Twig loader that finds templates in modules (only in `src/`)
-* cli console
