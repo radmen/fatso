@@ -3,6 +3,7 @@
 namespace Fatso;
 
 use Silex\Application;
+use Silex\Util;
 
 class Bootstrap {
   
@@ -68,6 +69,11 @@ class Bootstrap {
       }
       
       $this->app->register(new $class(), $options['options'] ?: array());
+      
+      if(true === isset($options['extender'])) {
+        $callback = new Util\Callback($options['extender']);
+        $callback($this->app, $options);
+      }
     }
     
     return $this;
