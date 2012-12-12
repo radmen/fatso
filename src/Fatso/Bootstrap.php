@@ -3,7 +3,7 @@
 namespace Fatso;
 
 use Silex\Application;
-use Silex\Util;
+use Fatso\Util;
 
 class Bootstrap {
   
