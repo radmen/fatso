@@ -62,7 +62,12 @@ class Bootstrap {
     }
     
     foreach($this->app['config']->get('bootstrap/*') as $class => $options) {
-      $this->app->register(new $class(), $options ?: array());
+      
+      if(false === is_array($options)) {
+        $options = array();
+      }
+      
+      $this->app->register(new $class(), $options['options'] ?: array());
     }
     
     return $this;
